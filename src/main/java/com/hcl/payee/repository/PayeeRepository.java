@@ -1,9 +1,9 @@
 package com.hcl.payee.repository;
 
-import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hcl.payee.entity.Payee;
 
-public interface PayeeRepository extends JpaAttributeConverter<Payee, Integer>{
+public interface PayeeRepository extends JpaRepository<Payee, Integer>{
 
 }
