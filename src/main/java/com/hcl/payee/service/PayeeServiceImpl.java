@@ -15,7 +15,8 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Autowired
 	private PayeeRepository payeeRepository;
-	@Autowired(required = true)
+	
+	@Autowired
 	public JavaMailSender emailSender;
 	Long otp1;
 
