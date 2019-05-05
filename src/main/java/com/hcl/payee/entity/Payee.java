@@ -10,12 +10,18 @@ public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	
 	private String name;
 	private String branch;
 	private long accountNumber;
 	private String accountType;
 	private long otp;
+	private boolean flag ;
+	
+	public Payee() {
+		super();
+		
+	}
 
 	public long getId() {
 		return id;
@@ -64,5 +70,15 @@ public class Payee {
 	public void setOtp(long otp) {
 		this.otp = otp;
 	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+	
+
 
 }
