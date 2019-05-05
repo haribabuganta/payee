@@ -70,6 +70,17 @@
 			<version>2.0.1.RELEASE</version>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+
+  <snapshotRepository>
+
+    <id>nexus</id>
+
+    <url>http://13.233.23.179:8081/repository/ingsuite4/</url>
+
+  </snapshotRepository>
+
+</distributionManagement
 
 	<build>
 		<plugins>
@@ -99,45 +110,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-
-				<groupId>org.sonatype.plugins</groupId>
-
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-
-				<version>1.5.1</version>
-
-				<executions>
-
-					<execution>
-
-						<id>default-deploy</id>
-
-						<phase>deploy</phase>
-
-						<goals>
-
-							<goal>deploy</goal>
-
-						</goals>
-
-					</execution>
-
-				</executions>
-
-				<configuration>
-
-					<serverId>nexus</serverId>
-
-					<nexusUrl>http://localhost:8081/nexus/</nexusUrl>
-
-					<skipStaging>true</skipStaging>
-
-				</configuration>
-
-			</plugin>
-
-
 		</plugins>
 	</build>
 
