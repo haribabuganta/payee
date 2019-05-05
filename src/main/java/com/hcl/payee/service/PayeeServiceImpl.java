@@ -2,7 +2,6 @@ package com.hcl.payee.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -108,6 +107,7 @@ public class PayeeServiceImpl implements PayeeService {
 			payee.setFlag(true);
 			payeeRepository.save(payee);
 
+			return "Payee is registered successfully";
 		}
 		return "Payee is registered successfully";
 	}
