@@ -19,30 +19,27 @@ import com.hcl.payee.service.PayeeServiceImpl;
 @RestController
 @RequestMapping("/paypee")
 public class PayeeController {
-	
+
 	@Autowired
 	PayeeService payeeService;
-	
-	@Autowired
-	private PayeeServiceImpl payeeServiceImpl;
 
 	@GetMapping("/welcome")
 	public String test() {
 
 		return "welocme";
 	}
-	
+
 	@GetMapping("/payeedelete/{payeeid}")
-	public String payeeDelete(@PathParam(value = "payeeId") int payeeId){
-		
+	public String payeeDelete(@PathParam(value = "payeeId") int payeeId) {
+
 		return payeeService.delete(payeeId);
-		
+
 	}
 
 	@PostMapping("/addpayee")
 	public String addPayee(@RequestBody Payee payee) {
 
-		payeeServiceImpl.addPayee(payee);
+		payeeService.addPayee(payee);
 
 		return "successfully added payee";
 
@@ -51,7 +48,7 @@ public class PayeeController {
 	@PutMapping("/validateotp/{payeeId}")
 	public String validatePayeeOtp(@PathVariable("payeeId") int payeeId,
 			@RequestParam("otp") int otp) {
-		String str = payeeServiceImpl.validatePayee(otp, payeeId);
+		String str = payeeService.validatePayee(otp, payeeId);
 
 		return str;
 	}
