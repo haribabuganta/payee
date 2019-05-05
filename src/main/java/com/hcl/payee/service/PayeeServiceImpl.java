@@ -2,7 +2,6 @@ package com.hcl.payee.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +62,7 @@ public class PayeeServiceImpl implements PayeeService {
 		if (payee.getOtp() == otp) {
 			payee.setFlag(true);
 			payeeRepository.save(payee);
+
 			return "Payee is registered successfully";
 		}
 		return "Payee is not registered successfully";
