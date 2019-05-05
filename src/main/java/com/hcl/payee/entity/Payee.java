@@ -13,8 +13,7 @@ public class Payee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@JsonIgnore
-	private int id;
+	
 
 	private String name;
 	private String branch;
@@ -29,8 +28,7 @@ public class Payee {
 		super();
 		
 	}
-	@JsonIgnore
-	private boolean flag;
+	
 
 	public long getId() {
 		return id;
