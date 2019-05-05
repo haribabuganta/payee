@@ -2,9 +2,9 @@ package com.hcl.payee.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.hcl.payee.entity.Payee;
@@ -15,9 +15,7 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Autowired
 	private PayeeRepository payeeRepository;
-	
-	@Autowired
-	public JavaMailSender emailSender;
+
 	Long otp1;
 
 	@Override
@@ -31,23 +29,26 @@ public class PayeeServiceImpl implements PayeeService {
 	@Override
 	public String delete(long payeeId) {
 		Payee payee = payeeRepository.findById(payeeId).get();
-		if (payee!=null) {
+		if (payee != null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
-			
-    try {  
+
+			/*try {
 				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
-				payeeServiceImpl.sendMail();
+				//payeeServiceImpl.sendMail();
 
 				return "OTP genarated and sent to your email id sucessfully";
-     }catch(Exception e) {
+			} catch (Exception e) {
 
-    	 return "internalpblm";
+				return "internalpblm";
 
-	}}else {
-		return "can you please send proper payeeId";
-	}}
+			}*/
+		} else {
+			return "can you please send proper payeeId";
+		}
 		
+		return "success";
+	}
 
 	public String random(int size) {
 
@@ -65,20 +66,20 @@ public class PayeeServiceImpl implements PayeeService {
 		return generatedToken.toString();
 	}
 
-	private void sendMail() throws Exception {
+/*	private void sendMail() throws Exception {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("haricg8@gmail.com");
 		message.setSubject("This is subject");
 		message.setText("otp1");
 		try {
-			System.out.println("emailSender ======>> " + emailSender);
-			emailSender.send(message);
+			// System.out.println("emailSender ======>> " + emailSender);
+			// emailSender.send(message);
 			System.out.println("Email sent...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	@Override
 	public void addPayee(Payee payee) {
