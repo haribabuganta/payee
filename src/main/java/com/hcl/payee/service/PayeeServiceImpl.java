@@ -6,25 +6,47 @@ import java.security.SecureRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hcl.payee.entity.Payee;
 import com.hcl.payee.repository.PayeeRepository;
-@Service
-public class PayeeServiceImpl implements PayeeService{
-	@Autowired
-	PayeeRepository payeeRepository;
+
+
 	
 
-@Override
+@Service
+public class PayeeServiceImpl implements PayeeService {
+	
+    @Autowired
+	private PayeeRepository payeeRepository;
+    @Override
 	public String delete(int payeeId) {
-		String otp =random(6);
-		Long otp1=Long.parseLong(otp);
+    	Payee payee = payeeRepository.findById(payeeId).get();
+		if(payee.getId()==payeeId) {
+			String otp =random(6);
+			Long otp1=Long.parseLong(otp);
+			
+			return "can you please enter OTP don't share this OTP to any one";
+			
+		}else
 		
+			return "can you please send proper payeeId";
 	
 		
 		
 		
-		return "can you please enter OTP don't share this OTP to any one";
+		
 	}
 
+
+	@Override
+	public void addPayee(Payee payee) {
+		String str=random(6);
+		long otp = Long.parseLong(str);
+		System.out.println("otp"+otp);
+		payee.setOtp(otp);
+		// TODO Auto-generated method stub
+		payeeRepository.save(payee);
+		
+	}
 	private  static String random(int size) {
 
 		StringBuilder generatedToken = new StringBuilder();
@@ -40,5 +62,6 @@ public class PayeeServiceImpl implements PayeeService{
 
 		return generatedToken.toString();
 		}
+	
 
 }
