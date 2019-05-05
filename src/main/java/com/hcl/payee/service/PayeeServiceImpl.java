@@ -16,52 +16,43 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Autowired
 	private PayeeRepository payeeRepository;
-	
-    @Autowired
+
+	@Override
+	public String validateOtp(long id, long otp) {
+
+		payeeRepository.deleteById(id);
+		return "Successfully-deleted";
+
+	}
+
+	@Autowired
 	public JavaMailSender emailSender;
     
     Long otp1 ;
     
-    @Override
+
+	@Override
 	public String delete(long payeeId) {
-    	Payee payee = payeeRepository.findById(payeeId).get();
-		if(payee.getId()==payeeId) {
-			String otp =random(6);
-			Long otp1=Long.parseLong(otp);
+		Payee payee = payeeRepository.findById(payeeId).get();
+		if (payee.getId() == payeeId) {
+			String otp = random(6);
+			Long otp1 = Long.parseLong(otp);
 			try {
-			
-			PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
-			payeeServiceImpl.sendMail();
-			
-			return "OTP genarated and sent to your email id sucessfully";
-			}
-			catch(Exception e) {
+
+				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
+				payeeServiceImpl.sendMail();
+
+				return "OTP genarated and sent to your email id sucessfully";
+			} catch (Exception e) {
 				e.printStackTrace();
 				return "can you please send proper payeeid";
 			}
-			
-		}else
-		
+
+		} else
+
 			return "can you please send proper payeeId";
-	
-		
-	}
-
-	@Override
-	public void addPayee(Payee payee) {
-		String str=random(6);
-		Long i =new Long(str);
-		System.out.println("otp"+i);
-		payee.setOtp(i);
-		String str1 = random(6);
-		long otp = Long.parseLong(str1);
-		System.out.println("otp" + otp);
-		payee.setOtp(otp);
-		
-		payeeRepository.save(payee);
 
 	}
-
 	public String random(int size) {
 
 		StringBuilder generatedToken = new StringBuilder();
@@ -77,31 +68,49 @@ public class PayeeServiceImpl implements PayeeService {
 
 		return generatedToken.toString();
 	}
+	private void sendMail() throws Exception {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("haricg8@gmail.com");
+		message.setSubject("This is subject");
+		message.setText("otp1");
+		try {
+			System.out.println("emailSender ======>> " + emailSender);
+			emailSender.send(message);
+			System.out.println("Email sent...");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+
+
+	@Override
+	public void addPayee(Payee payee) {
+		String str = random(6);
+		Long i = new Long(str);
+		System.out.println("otp" + i);
+		payee.setOtp(i);
+		String str1 = random(6);
+		long otp = Long.parseLong(str1);
+		System.out.println("otp" + otp);
+		payee.setOtp(otp);
+		payee.setFlag(false);
+
+		payeeRepository.save(payee);
+
+	}
+
+	
 	@Override
 	public String validatePayee(long otp, long payeeId) {
 		Payee payee = payeeRepository.getOne(payeeId);
 		if (payee.getOtp() == otp) {
 			payee.setFlag(true);
 			payeeRepository.save(payee);
-			
+
 		}
 		return "Payee is registered successfully";
 	}
-	
-	private void sendMail() throws Exception{
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("haricg8@gmail.com");
-		message.setSubject("This is subject");
-		message.setText("otp1");
-		try {
-			System.out.println("emailSender ======>> "+emailSender);
-			emailSender.send(message);
-			System.out.println("Email sent...");
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	
-	}
 
+	
 }

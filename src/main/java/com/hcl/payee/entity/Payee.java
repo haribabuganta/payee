@@ -16,7 +16,7 @@ public class Payee {
 	private long accountNumber;
 	private String accountType;
 	private long otp;
-	private boolean flag;
+	private boolean flag ;
 	
 	public Payee() {
 		super();
