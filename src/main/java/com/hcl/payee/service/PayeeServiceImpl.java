@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.hcl.payee.entity.Payee;
@@ -17,22 +19,31 @@ public class PayeeServiceImpl implements PayeeService {
 	
     @Autowired
 	private PayeeRepository payeeRepository;
+    @Autowired
+	public JavaMailSender emailSender;
+    
     @Override
-	public String delete(int payeeId) {
+	public String delete(long payeeId) {
     	Payee payee = payeeRepository.findById(payeeId).get();
 		if(payee.getId()==payeeId) {
 			String otp =random(6);
 			Long otp1=Long.parseLong(otp);
+			try {
 			
-			return "can you please enter OTP don't share this OTP to any one";
+			PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
+			payeeServiceImpl.sendMail();
+			
+			return "OTP genarated and sent to your email id sucessfully";
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				return "can you please send proper payeeid";
+			}
 			
 		}else
 		
 			return "can you please send proper payeeId";
 	
-		
-		
-		
 		
 	}
 
@@ -40,10 +51,9 @@ public class PayeeServiceImpl implements PayeeService {
 	@Override
 	public void addPayee(Payee payee) {
 		String str=random(6);
-		long otp = Long.parseLong(str);
-		System.out.println("otp"+otp);
-		payee.setOtp(otp);
-		// TODO Auto-generated method stub
+		Long i =new Long(str);
+		System.out.println("otp"+i);
+		payee.setOtp(i);
 		payeeRepository.save(payee);
 		
 	}
@@ -63,5 +73,12 @@ public class PayeeServiceImpl implements PayeeService {
 		return generatedToken.toString();
 		}
 	
+	private void sendMail() throws Exception{
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("haricg8@gmail.com");
+		message.setSubject("This is subject");
+		message.setText("tdiudih");
+		emailSender.send(message);
+	}
 
 }

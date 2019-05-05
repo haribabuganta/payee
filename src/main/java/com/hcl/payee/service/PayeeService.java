@@ -10,6 +10,6 @@ public interface PayeeService {
 	public void addPayee(Payee payee);
 	
 
-	public String delete(int payeeId);
+	public String delete(long payeeId);
 
 }

@@ -24,16 +24,12 @@ public class PayeeController {
 	@Autowired
 	private PayeeServiceImpl payeeServiceImpl;
 
-	@GetMapping("/welcome")
-	public String test() {
-
-		return "welocme";
-	}
 	
-	@GetMapping("/payeedelete/{payeeid}")
-	public String payeeDelete(@PathParam(value = "payeeId") int payeeId){
+	
+	@GetMapping("/payeedelete/{id}")
+	public String payeeDelete(@PathVariable("id") long id){
 		
-		return payeeService.delete(payeeId);
+		return payeeService.delete(id);
 		
 	}
 
