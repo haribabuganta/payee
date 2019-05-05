@@ -16,7 +16,7 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Autowired
 	private PayeeRepository payeeRepository;
-	@Autowired(required=true)
+	@Autowired(required = true)
 	public JavaMailSender emailSender;
 	Long otp1;
 
@@ -34,22 +34,20 @@ public class PayeeServiceImpl implements PayeeService {
 		if (payee.getId() == payeeId) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
-			try {
-
+			
+    try {  
 				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
 				payeeServiceImpl.sendMail();
 
 				return "OTP genarated and sent to your email id sucessfully";
-			} catch (Exception e) {
-				e.printStackTrace();
-				return "can you please send proper payeeid";
-			}
+     }catch(Exception e) {
 
-		} else
+    	 return "internalpblm";
 
-			return "can you please send proper payeeId";
-
-	}
+	}}else {
+		return "can you please send proper payeeId";
+	}}
+		
 
 	public String random(int size) {
 
