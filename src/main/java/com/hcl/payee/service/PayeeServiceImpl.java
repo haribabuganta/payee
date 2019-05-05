@@ -31,7 +31,7 @@ public class PayeeServiceImpl implements PayeeService {
 	@Override
 	public String delete(long payeeId) {
 		Payee payee = payeeRepository.findById(payeeId).get();
-		if (payee.getId() == payeeId) {
+		if (payee!=null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
 			
