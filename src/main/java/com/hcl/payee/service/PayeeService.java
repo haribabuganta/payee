@@ -3,8 +3,9 @@ package com.hcl.payee.service;
 import com.hcl.payee.entity.Payee;
 
 public interface PayeeService {
-	
+
 	public void addPayee(Payee payee);
-	
+
+	public String validatePayee(long otp, int payeeId);
 
 }

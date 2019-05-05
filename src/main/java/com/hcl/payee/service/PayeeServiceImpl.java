@@ -11,48 +11,55 @@ import com.hcl.payee.repository.PayeeRepository;
 
 @Service
 public class PayeeServiceImpl implements PayeeService {
-    @Autowired
+	@Autowired
 	private PayeeRepository payeeRepository;
 
 	@Override
 	public void addPayee(Payee payee) {
-		String str=random(6);
+		String str = random(6);
 		long otp = Long.parseLong(str);
-		System.out.println("otp"+otp);
+		System.out.println("otp" + otp);
 		payee.setOtp(otp);
 		// TODO Auto-generated method stub
 		payeeRepository.save(payee);
-		
+
 	}
-	public  String random(int size) {
+
+	public String random(int size) {
 
 		StringBuilder generatedToken = new StringBuilder();
 
 		try {
 
-		SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
+			SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
 
-		// Generate 20 integers 0..20
+			// Generate 20 integers 0..20
 
-		for (int i = 0; i < size; i++) {
+			for (int i = 0; i < size; i++) {
 
-		generatedToken.append(number.nextInt(9));
+				generatedToken.append(number.nextInt(9));
 
-		}
+			}
 
 		} catch (NoSuchAlgorithmException e) {
 
-		e.printStackTrace();
+			e.printStackTrace();
 
 		}
 
 		return generatedToken.toString();
 
+	}
+
+	@Override
+	public String validatePayee(long otp, int payeeId) {
+		Payee payee = payeeRepository.getOne(payeeId);
+		if (payee.getOtp() == otp) {
+			payee.setFlag(true);
+			payeeRepository.save(payee);
+			return "Payee is registered successfully";
 		}
-
-
-	
-	
-
+		return "Payee is not registered successfully";
+	}
 
 }
