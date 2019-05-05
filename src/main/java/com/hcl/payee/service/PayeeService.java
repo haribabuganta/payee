@@ -1,10 +1,8 @@
 package com.hcl.payee.service;
 
-import org.springframework.stereotype.Service;
-
 import com.hcl.payee.entity.Payee;
 
-@Service
+//@Service
 public interface PayeeService {
 
 	public void addPayee(Payee payee);

@@ -20,6 +20,8 @@ public class PayeeServiceImpl implements PayeeService {
     @Autowired
 	public JavaMailSender emailSender;
     
+    Long otp1 ;
+    
     @Override
 	public String delete(long payeeId) {
     	Payee payee = payeeRepository.findById(payeeId).get();
@@ -91,7 +93,7 @@ public class PayeeServiceImpl implements PayeeService {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("haricg8@gmail.com");
 		message.setSubject("This is subject");
-		message.setText("tdiudih");
+		message.setText("otp1");
 		try {
 			System.out.println("emailSender ======>> "+emailSender);
 			emailSender.send(message);
