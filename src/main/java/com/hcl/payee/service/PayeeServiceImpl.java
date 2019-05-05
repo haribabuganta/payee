@@ -16,6 +16,9 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Autowired
 	private PayeeRepository payeeRepository;
+	@Autowired(required=true)
+	public JavaMailSender emailSender;
+	Long otp1;
 
 	@Override
 	public String validateOtp(long id, long otp) {
@@ -24,12 +27,6 @@ public class PayeeServiceImpl implements PayeeService {
 		return "Successfully-deleted";
 
 	}
-
-	@Autowired
-	public JavaMailSender emailSender;
-    
-    Long otp1 ;
-    
 
 	@Override
 	public String delete(long payeeId) {
@@ -53,6 +50,7 @@ public class PayeeServiceImpl implements PayeeService {
 			return "can you please send proper payeeId";
 
 	}
+
 	public String random(int size) {
 
 		StringBuilder generatedToken = new StringBuilder();
@@ -68,6 +66,7 @@ public class PayeeServiceImpl implements PayeeService {
 
 		return generatedToken.toString();
 	}
+
 	private void sendMail() throws Exception {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("haricg8@gmail.com");
@@ -82,7 +81,6 @@ public class PayeeServiceImpl implements PayeeService {
 		}
 
 	}
-
 
 	@Override
 	public void addPayee(Payee payee) {
@@ -100,7 +98,6 @@ public class PayeeServiceImpl implements PayeeService {
 
 	}
 
-	
 	@Override
 	public String validatePayee(long otp, long payeeId) {
 		Payee payee = payeeRepository.getOne(payeeId);
@@ -112,5 +109,4 @@ public class PayeeServiceImpl implements PayeeService {
 		return "Payee is registered successfully";
 	}
 
-	
 }
