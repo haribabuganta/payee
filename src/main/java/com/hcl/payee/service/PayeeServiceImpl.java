@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import com.hcl.payee.entity.Payee;
 import com.hcl.payee.repository.PayeeRepository;
 
-
-	
-
 @Service
 public class PayeeServiceImpl implements PayeeService {
-	
-    @Autowired
+
+	@Autowired
 	private PayeeRepository payeeRepository;
+	
     @Autowired
 	public JavaMailSender emailSender;
     
@@ -47,38 +45,61 @@ public class PayeeServiceImpl implements PayeeService {
 		
 	}
 
-
 	@Override
 	public void addPayee(Payee payee) {
 		String str=random(6);
 		Long i =new Long(str);
 		System.out.println("otp"+i);
 		payee.setOtp(i);
-		payeeRepository.save(payee);
+		String str1 = random(6);
+		long otp = Long.parseLong(str1);
+		System.out.println("otp" + otp);
+		payee.setOtp(otp);
 		
+		payeeRepository.save(payee);
+
 	}
-	private  static String random(int size) {
+
+	public String random(int size) {
 
 		StringBuilder generatedToken = new StringBuilder();
 		try {
-		SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
-		// Generate 20 integers 0..20
-		for (int i = 0; i < size; i++) {
-		generatedToken.append(number.nextInt(9));
-		}
+			SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
+			// Generate 20 integers 0..20
+			for (int i = 0; i < size; i++) {
+				generatedToken.append(number.nextInt(9));
+			}
 		} catch (NoSuchAlgorithmException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return generatedToken.toString();
+	}
+
+	@Override
+	public String validatePayee(long otp, long payeeId) {
+		Payee payee = payeeRepository.getOne(payeeId);
+		if (payee.getOtp() == otp) {
+			payee.setFlag(true);
+			payeeRepository.save(payee);
+			
 		}
+		return "Payee is registered successfully";
+	}
 	
 	private void sendMail() throws Exception{
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("haricg8@gmail.com");
 		message.setSubject("This is subject");
 		message.setText("tdiudih");
-		emailSender.send(message);
+		try {
+			System.out.println("emailSender ======>> "+emailSender);
+			emailSender.send(message);
+			System.out.println("Email sent...");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }
