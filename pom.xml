@@ -73,7 +73,7 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nexus</id>
-			<url>http://http://13.233.23.179:8081/repository/ingsuite4/</url>
+			<url>http://13.233.23.179:8081/repository/ingsuite4/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
