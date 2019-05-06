@@ -50,7 +50,7 @@ public class PayeeServiceImpl implements PayeeService {
 			 } 
 			catch(Exception e) {
 			 
-			  return "OTP otpgenerated";
+			  return "OTP generated";
 		}
 		}
 		else {
