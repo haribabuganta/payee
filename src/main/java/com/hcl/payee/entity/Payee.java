@@ -5,34 +5,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long payeeId;
-	
+	@JsonIgnore
+	private long id;
+
 	private String name;
 	private String branch;
 	private long accountNumber;
 	private String accountType;
+	@JsonIgnore
 	private long otp;
-	private boolean flag ;
-	
+	@JsonIgnore
+	private boolean flag;
+
 	public Payee() {
 		super();
-		
+
 	}
 
-	
-	public long getPayeeId() {
-		return payeeId;
+	public long getId() {
+		return id;
 	}
 
-
-	public void setPayeeId(long payeeId) {
-		this.payeeId = payeeId;
+	public void setId(long id) {
+		this.id = id;
 	}
-
 
 	public String getName() {
 		return name;
@@ -81,7 +83,5 @@ public class Payee {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	
-
 
 }

@@ -4,8 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.hcl.payee.entity.Payee;
@@ -17,6 +15,8 @@ public class PayeeServiceImpl implements PayeeService {
 	@Autowired
 	private PayeeRepository payeeRepository;
 
+	Long otp1;
+
 	@Override
 	public String validateOtp(long id, long otp) {
 		payeeRepository.deleteById(id);
@@ -24,32 +24,29 @@ public class PayeeServiceImpl implements PayeeService {
 
 	}
 
-	@Autowired
-	public JavaMailSender emailSender;
-
-	Long otp1;
-
 	@Override
 	public String delete(long payeeId) {
 		Payee payee = payeeRepository.findById(payeeId).get();
-		if (payee.getOtp() == payeeId) {
+		if (payee != null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
-			try {
 
-				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
-				payeeServiceImpl.sendMail();
-
-				return "OTP genarated and sent to your email id sucessfully";
-			} catch (Exception e) {
-				e.printStackTrace();
-				return "can you please send proper payeeid";
-			}
-
-		} else
-
+			/*
+			 * try { PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
+			 * //payeeServiceImpl.sendMail();
+			 * 
+			 * return "OTP genarated and sent to your email id sucessfully"; } catch
+			 * (Exception e) {
+			 * 
+			 * return "internalpblm";
+			 * 
+			 * }
+			 */
+		} else {
 			return "can you please send proper payeeId";
+		}
 
+		return "success";
 	}
 
 	public String random(int size) {
@@ -68,20 +65,17 @@ public class PayeeServiceImpl implements PayeeService {
 		return generatedToken.toString();
 	}
 
-	private void sendMail() throws Exception {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("haricg8@gmail.com");
-		message.setSubject("This is subject");
-		message.setText("otp1");
-		try {
-			System.out.println("emailSender ======>> " + emailSender);
-			emailSender.send(message);
-			System.out.println("Email sent...");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+	/*
+	 * private void sendMail() throws Exception { >>>>>>> development
+	 * SimpleMailMessage message = new SimpleMailMessage();
+	 * message.setTo("haricg8@gmail.com"); message.setSubject("This is subject");
+	 * message.setText("otp1"); try { // System.out.println("emailSender ======>> "
+	 * + emailSender); // emailSender.send(message);
+	 * System.out.println("Email sent..."); } catch (Exception e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * <<<<<<< HEAD } ======= }
+	 */
 
 	@Override
 	public void addPayee(Payee payee) {
@@ -106,6 +100,7 @@ public class PayeeServiceImpl implements PayeeService {
 			payee.setFlag(true);
 			payeeRepository.save(payee);
 
+			return "Payee is registered successfully";
 		}
 		return "Payee is registered successfully";
 	}
