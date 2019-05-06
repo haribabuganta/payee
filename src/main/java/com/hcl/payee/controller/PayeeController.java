@@ -24,8 +24,7 @@ public class PayeeController {
 
 	@DeleteMapping("/validate")
 	public String validate(@RequestBody DeletePayeeRequest DeletePayeeRequest) {
-		return payeeService.validateOtp(DeletePayeeRequest.getId(),
-				DeletePayeeRequest.getOtp());
+		return payeeService.validateOtp(DeletePayeeRequest.getId(), DeletePayeeRequest.getOtp());
 	}
 
 	@GetMapping("/payeedelete/{id}")
@@ -35,14 +34,14 @@ public class PayeeController {
 
 	@PostMapping("/addpayee")
 	public String addPayee(@RequestBody Payee payee) {
+
 		payeeService.addPayee(payee);
-		return "successfully added payee";
+		return "Successfully OTP generated";
 
 	}
 
 	@PutMapping("/validateotp/{payeeId}")
-	public String validatePayeeOtp(@PathVariable("payeeId") long payeeId,
-			@RequestParam("otp") long otp) {
+	public String validatePayeeOtp(@PathVariable("payeeId") long payeeId, @RequestParam("otp") long otp) {
 		return payeeService.validatePayee(otp, payeeId);
 	}
 

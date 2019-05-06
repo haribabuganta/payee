@@ -11,10 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long payeeId;
 	
 	
-
+	private long id;
 	private String name;
 	private String branch;
 	private long accountNumber;
@@ -22,22 +21,12 @@ public class Payee {
 	@JsonIgnore
 	private long otp;
 	@JsonIgnore
-	private boolean flag ;
-	
+	private boolean flag;
+
 	public Payee() {
 		super();
-		
+
 	}
-
-	public long getPayeeId() {
-		return payeeId;
-	}
-
-
-	public void setPayeeId(long payeeId) {
-		this.payeeId = payeeId;
-	}
-
 
 	public String getName() {
 		return name;
@@ -86,7 +75,5 @@ public class Payee {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	
-
 
 }

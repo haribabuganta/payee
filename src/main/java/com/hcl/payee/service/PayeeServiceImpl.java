@@ -28,15 +28,14 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Override
 	public String validateOtp(long id, long otp) {
-
 		payeeRepository.deleteById(id);
-		return "Successfully-deleted";
+		return "Successfully deleted Payee";
 
 	}
 
 	@Override
 	public String delete(long payeeId) {
-		Payee payee = payeeRepository.findByPayeeId(payeeId);
+		Payee payee = payeeRepository.findById(payeeId);
 		if (payee != null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
@@ -56,7 +55,7 @@ public class PayeeServiceImpl implements PayeeService {
 			return "can you please send proper payeeId";
 			}
 
-		/*return "successfully send otp to your mailid";*/
+
 	}
 
 	
@@ -77,16 +76,7 @@ public class PayeeServiceImpl implements PayeeService {
 		return generatedToken.toString();
 	}
 
-	/*
-	 * private void sendMail() throws Exception { SimpleMailMessage message = new
-	 * SimpleMailMessage(); message.setTo("haricg8@gmail.com");
-	 * message.setSubject("This is subject"); message.setText("otp1"); try { //
-	 * System.out.println("emailSender ======>> " + emailSender); //
-	 * emailSender.send(message); System.out.println("Email sent..."); } catch
-	 * (Exception e) { e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+	
 
 	@Override
 	public void addPayee(Payee payee) {

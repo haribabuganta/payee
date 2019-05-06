@@ -8,6 +8,7 @@ import com.hcl.payee.entity.Payee;
 @Repository
 public interface PayeeRepository extends JpaRepository<Payee, Long> {
 	
-	public Payee findByPayeeId(long payeeId);
+	public Payee findById(long payeeId);
+
 
 }
