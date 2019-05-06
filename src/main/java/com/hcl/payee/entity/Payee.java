@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long payeeId;
 	
 	
 
@@ -28,15 +28,16 @@ public class Payee {
 		super();
 		
 	}
-	
 
-	public long getId() {
-		return id;
+	public long getPayeeId() {
+		return payeeId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+	public void setPayeeId(long payeeId) {
+		this.payeeId = payeeId;
 	}
+
 
 	public String getName() {
 		return name;

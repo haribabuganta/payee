@@ -2,9 +2,17 @@ package com.hcl.payee.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.hcl.payee.entity.Payee;
@@ -28,27 +36,30 @@ public class PayeeServiceImpl implements PayeeService {
 
 	@Override
 	public String delete(long payeeId) {
-		Payee payee = payeeRepository.findById(payeeId).get();
+		Payee payee = payeeRepository.findByPayeeId(payeeId);
 		if (payee != null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
 
-			/*try {
+			try { 
 				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
-				//payeeServiceImpl.sendMail();
-
-				return "OTP genarated and sent to your email id sucessfully";
-			} catch (Exception e) {
-
-				return "internalpblm";
-
-			}*/
-		} else {
-			return "can you please send proper payeeId";
+			 payeeServiceImpl.sendEmail();
+			
+			 return "OTP genarated sucessfully";
+			 } 
+			catch(Exception e) {
+			 
+			  return "OTP otpgenerated";
 		}
-		
-		return "success";
+		}
+		else {
+			return "can you please send proper payeeId";
+			}
+
+		/*return "successfully send otp to your mailid";*/
 	}
+
+	
 
 	public String random(int size) {
 
@@ -66,20 +77,16 @@ public class PayeeServiceImpl implements PayeeService {
 		return generatedToken.toString();
 	}
 
-/*	private void sendMail() throws Exception {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("haricg8@gmail.com");
-		message.setSubject("This is subject");
-		message.setText("otp1");
-		try {
-			// System.out.println("emailSender ======>> " + emailSender);
-			// emailSender.send(message);
-			System.out.println("Email sent...");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}*/
+	/*
+	 * private void sendMail() throws Exception { SimpleMailMessage message = new
+	 * SimpleMailMessage(); message.setTo("haricg8@gmail.com");
+	 * message.setSubject("This is subject"); message.setText("otp1"); try { //
+	 * System.out.println("emailSender ======>> " + emailSender); //
+	 * emailSender.send(message); System.out.println("Email sent..."); } catch
+	 * (Exception e) { e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
 	@Override
 	public void addPayee(Payee payee) {
@@ -107,6 +114,42 @@ public class PayeeServiceImpl implements PayeeService {
 			return "Payee is registered successfully";
 		}
 		return "Payee is registered successfully";
+	}
+
+	public static void sendEmail() {
+		System.out.println("inside sendEmail1");
+
+		final String username = "krkesava197@gmail.com";
+		final String password = "49064906";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("krkesava197@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("rohitkumar999rns@gmail.com"));
+			message.setSubject("Testing Subject");
+			message.setText("for testing");
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 }
