@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private long id;
 
 	private String name;
