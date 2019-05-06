@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Payee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long payeeId;
 	
 	private String name;
 	private String branch;
@@ -23,13 +23,16 @@ public class Payee {
 		
 	}
 
-	public long getId() {
-		return id;
+	
+	public long getPayeeId() {
+		return payeeId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+	public void setPayeeId(long payeeId) {
+		this.payeeId = payeeId;
 	}
+
 
 	public String getName() {
 		return name;

@@ -20,8 +20,9 @@ import com.hcl.payee.service.PayeeServiceImpl;
 @RequestMapping("/paypee")
 public class PayeeController {
 
-	@Autowired
-	private PayeeServiceImpl payeeServiceImpl;
+	/*
+	 * @Autowired private PayeeServiceImpl payeeServiceImpl;
+	 */
 	@Autowired
 	PayeeService payeeService;
 
@@ -44,7 +45,7 @@ public class PayeeController {
 
 		payeeServiceImpl.addPayee(payee);
 
-		return "successfully added payee";
+		return "successfully OTP generated";
 
 	}
 

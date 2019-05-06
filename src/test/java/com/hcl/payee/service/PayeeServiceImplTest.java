@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.hcl.payee.pojo.DeletePayeeRequest;
@@ -22,7 +21,7 @@ public class PayeeServiceImplTest {
 	@InjectMocks
 	PayeeServiceImpl payeeServiceImpl;
 
-	static String s1 = "Successfully-deleted";
+	static String s1 = "Successfully deleted Payee";
 	static DeletePayeeRequest deletePayeeRequest = null;
 
 	@BeforeClass
@@ -37,7 +36,6 @@ public class PayeeServiceImplTest {
 	public void testvalidateOtp() {
 		String actval = payeeServiceImpl.validateOtp(1L, 123456);
 		Assert.assertEquals(s1, actval);
-		System.out.println("test");
 
 	}
 
