@@ -39,6 +39,8 @@ public class PayeeServiceImpl implements PayeeService {
 		if (payee != null) {
 			String otp = random(6);
 			Long otp1 = Long.parseLong(otp);
+			payee.setOtp(otp1);
+			payeeRepository.save(payee);
 
 			try { 
 				PayeeServiceImpl payeeServiceImpl = new PayeeServiceImpl();
